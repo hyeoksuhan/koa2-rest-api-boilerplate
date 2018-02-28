@@ -1,4 +1,4 @@
-import fs from 'fs';
+const fs = require('fs');
 
 module.exports = (router) =>
   fs.readdirSync(__dirname)

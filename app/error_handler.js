@@ -1,4 +1,4 @@
-import errors from './errors';
+const errors = require('./errors');
 
 module.exports = async (ctx, next) => {
   try {

@@ -1,13 +1,12 @@
-import Koa from 'koa';
-import Router from 'koa-router';
-import compose from 'koa-compose';
-import helmet from 'koa-helmet';
-import jwt from 'koa-jwt';
-import parse from 'co-body';
-import session from 'koa-session';
+const Koa = require('koa');
+const Router = require('koa-router');
+const compose = require('koa-compose');
+const helmet = require('koa-helmet');
+const jwt = require('koa-jwt');
+const parse = require('co-body');
+const session = require('koa-session');
 
-import config from 'config';
-
+const config = require('config');
 const debug = require('debug')('koa2-rest-api-boilerplate');
 const routes = require('./routes');
 
