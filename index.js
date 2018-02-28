@@ -17,7 +17,8 @@ const app = require('./app')({
     }),
     rolling: sessions.resave,
     maxAge: sessions.maxage,
-  }
+  },
+  log4js: config.log4js
 });
 
 app.listen(process.env.PORT || 3000);

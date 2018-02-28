@@ -41,13 +41,18 @@ module.exports = ({
   prefix = '',
   jwtsecret = '__jwt_secret__',
   cookieSignKeys = ['__cookie_sign_keys__'],
-  sessions = undefined
+  sessions,
+  log4js,
 }) => {
   const app = new Koa();
-
   app.keys = cookieSignKeys;
 
   app.use(require('./response'));
+
+  if (log4js) {
+    app.use(require('./logger')(log4js));
+  }
+
   app.use(require('./error_handler'));
   app.use(helmet());
 
