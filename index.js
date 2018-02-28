@@ -3,9 +3,18 @@ require('babel-register')({
 	ignore: /node_modules\/(?!koa)/
 });
 
-var config = require('config');
-var app = require('./app')({
+const RedisStore = require('koa-session-redis-store');
+const config = require('config');
+
+const app = require('./app')({
   jwtsecret: config.jwtsecret,
-  prefix: '/api'
+  prefix: '/api',
+  cookieSignKeys: ['secret', 'keys'],
+  sessions: {
+    store: new RedisStore(),
+    rolling: false,
+    maxAge: 60 * 1000,
+  }
 });
+
 app.listen(process.env.PORT || 3000);
