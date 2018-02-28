@@ -16,7 +16,7 @@ const app = require('./app')({
       host: sessions.redishost
     }),
     rolling: sessions.resave,
-    maxAge: sessions.maage,
+    maxAge: sessions.maxage,
   }
 });
 
