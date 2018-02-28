@@ -1,0 +1,22 @@
+FROM node:4.8.7
+
+MAINTAINER hshan <hyeoksu.han@gmail.com>
+
+ARG API_PATH=/usr/app/api/
+
+# create and use workdir
+RUN mkdir -p $API_PATH
+WORKDIR $API_PATH
+
+# install dependencies
+COPY ./package.json $API_PATH
+RUN npm install
+
+# copy files
+COPY ./ $API_PATH
+
+# expose port
+EXPOSE 3000
+
+# run api
+CMD ["npm", "start"]

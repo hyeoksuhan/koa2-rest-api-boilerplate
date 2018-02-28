@@ -1,0 +1,21 @@
+version: '2.1'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker-node
+    volumes:
+      - /usr/app/api/node_modules
+    ports:
+      - '3000:3000'
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:4.0.8
+    volumes:
+      - /data
+    ports:
+      - '6379'
+    command: redis-server --appendonly yes

@@ -5,15 +5,18 @@ require('babel-register')({
 
 const RedisStore = require('koa-session-redis-store');
 const config = require('config');
+const sessions = config.sessions;
 
 const app = require('./app')({
   jwtsecret: config.jwtsecret,
   prefix: '/api',
   cookieSignKeys: ['secret', 'keys'],
   sessions: {
-    store: new RedisStore(),
-    rolling: false,
-    maxAge: 60 * 1000,
+    store: new RedisStore({
+      host: sessions.redishost
+    }),
+    rolling: sessions.resave,
+    maxAge: sessions.maage,
   }
 });
 
