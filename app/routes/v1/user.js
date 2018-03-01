@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('config');
 
-const errors = require('../../errors');
-
 module.exports = (authCheck) => ({
   '/login': {
     post: async ctx => {

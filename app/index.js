@@ -6,17 +6,20 @@ const jwt = require('koa-jwt');
 const parse = require('co-body');
 const session = require('koa-session');
 
-const config = require('config');
 const debug = require('debug')('koa2-rest-api-boilerplate');
 const routes = require('./routes');
 
 function routing(routes, {prefix, jwtsecret}) {
   const rootRouter = Router({prefix});
   const subRouters = [];
+
   Object.keys(routes).forEach(prefix => {
     const router = new Router({prefix});
-    router.authCheck = () => jwt({ secret: jwtsecret });
     subRouters.push(router);
+
+    if (jwtsecret) {
+      router.authCheck = () => jwt({ secret: jwtsecret });
+    }
 
     const route = routes[prefix];
     route(router);
@@ -39,14 +42,15 @@ function bodyParser() {
 
 module.exports = ({
   prefix = '',
-  jwtsecret = '__jwt_secret__',
   cookieSignKeys = ['__cookie_sign_keys__'],
+  jwtsecret,
   sessions,
   log4js,
 }) => {
   const app = new Koa();
   app.keys = cookieSignKeys;
 
+  app.use(helmet());
   app.use(require('./response'));
 
   if (log4js) {
@@ -54,7 +58,6 @@ module.exports = ({
   }
 
   app.use(require('./error_handler'));
-  app.use(helmet());
 
   if (sessions) {
     app.use(session(app, sessions));
