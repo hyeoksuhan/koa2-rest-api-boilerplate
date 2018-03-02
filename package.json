@@ -4,8 +4,8 @@
   "main": "index.js",
   "author": "hshan",
   "scripts": {
-    "dev": "DEBUG=koa* nodemon index.js",
-    "start": "node index.js"
+    "start": "./npm_scripts/start.sh",
+    "docker": "./npm_scripts/docker.sh"
   },
   "license": "MIT",
   "dependencies": {
