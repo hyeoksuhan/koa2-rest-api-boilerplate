@@ -6,7 +6,6 @@ const jwt = require('koa-jwt');
 const parse = require('co-body');
 const session = require('koa-session');
 
-const debug = require('debug')('koa2-rest-api-boilerplate');
 const routes = require('./routes');
 
 function routing(routes, {prefix, jwtsecret}) {

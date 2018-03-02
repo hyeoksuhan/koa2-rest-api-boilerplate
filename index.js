@@ -1,8 +1,3 @@
-require('babel-polyfill');
-require('babel-register')({
-	ignore: /node_modules\/(?!koa)/
-});
-
 const RedisStore = require('koa-session-redis-store');
 const config = require('config');
 const sessions = config.sessions;
