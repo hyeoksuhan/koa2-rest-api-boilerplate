@@ -1,3 +1,6 @@
 module.exports = {
-  // configs when NODE_ENV is development
+  mongo: {
+    host: 'localhost',
+    database: 'api-dev'
+  }
 };

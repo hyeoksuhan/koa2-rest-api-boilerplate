@@ -1,7 +1,10 @@
 const koaRest = require('koa2-rest-api');
 const RedisStore = require('koa-session-redis-store');
 const config = require('inheritable-config');
-const sessions = config.sessions;
+const {sessions, mongo} = config;
+const {mongoose} = require('./db');
+
+mongoose.connect(mongo); // async call
 
 const app = koaRest.createApp({
   jwtsecret: config.jwtsecret,

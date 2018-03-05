@@ -21,5 +21,9 @@ module.exports = {
       }
     },
     replaceConsole: false
+  },
+  mongo: {
+    port: 27017,
+    reconnect_period: 5*1000
   }
 };

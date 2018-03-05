@@ -12,7 +12,8 @@
     "inheritable-config": "^1.0.0",
     "jsonwebtoken": "^8.1.1",
     "koa-session-redis-store": "^1.0.4",
-    "koa2-rest-api": "^1.0.0"
+    "koa2-rest-api": "^1.0.0",
+    "mongoose": "^5.0.8"
   },
   "devDependencies": {
     "nodemon": "^1.15.0"

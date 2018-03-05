@@ -1,5 +1,9 @@
 version: '2.1'
 
+volumes:
+  redis-volume: {}
+  mongo-volume: {}
+
 services:
   api:
     build:
@@ -17,7 +21,14 @@ services:
   redis:
     image: redis:4.0.8
     volumes:
-      - /data
+      - redis-volume:/data
     ports:
       - '6379'
     command: redis-server --appendonly yes
+
+  mongo:
+    image: mongo:3.6.3
+    volumes:
+      - mongo-volume:/data/db
+    ports:
+      - '27017'
