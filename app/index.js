@@ -1,6 +1,6 @@
 const koaRest = require('koa2-rest-api');
 const RedisStore = require('koa-session-redis-store');
-const config = require('config');
+const config = require('inheritable-config');
 const sessions = config.sessions;
 
 const app = koaRest.createApp({
