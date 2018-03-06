@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "inheritable-config": "^1.0.0",
     "jsonwebtoken": "^8.1.1",
     "koa-session-redis-store": "^1.0.4",

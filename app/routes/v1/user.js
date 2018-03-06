@@ -4,17 +4,16 @@ const config = require('inheritable-config');
 module.exports = ({UserService}, authCheck) => ({
   '/users': {
     get: async ctx => {
-      ctx.body = await UserService.get();
+      const users = await UserService.get();
+      ctx.body = users.map(({email, name}) => ({email, name}));
     },
 
     post: async ctx => {
       const {email, name, password} = ctx.request.body;
-
-      if (!(email && password)) {
-        return ctx.sendError(400, new Error('Email or password is empty'));
-      }
-
-      ctx.body = await UserService.create({email, name, password});
+      const newuser = await UserService.create({email, name, password});
+      ctx.body = {
+        _id: newuser._id
+      };
     }
   },
 
