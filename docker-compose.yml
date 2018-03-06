@@ -11,6 +11,7 @@ services:
       dockerfile: docker-node
     volumes:
       - /usr/app/api/node_modules
+      - ./app:/usr/app/api/app
     ports:
       - '3000:3000'
     depends_on:
