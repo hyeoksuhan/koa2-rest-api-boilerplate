@@ -1,10 +1,10 @@
 const fs = require('fs');
 
-module.exports = (services) => {
+module.exports = (services, errors) => {
   return (router) =>
     fs.readdirSync(__dirname)
       .filter(file => file !== 'index.js')
-      .map(file => require('./' + file)(services, router.authCheck))
+      .map(file => require('./' + file)(services, errors, router.authCheck))
       .forEach(routes => {
         Object.keys(routes).forEach(path => {
           const route = routes[path];

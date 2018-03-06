@@ -7,7 +7,7 @@ const {mongoose} = require('./db');
 mongoose.connect(mongo); // async call
 
 const app = koaRest.createApp({
-  jwtsecret: config.jwtsecret,
+  jwtsecret: config.jwt.secret,
   prefix: '/api',
   cookieSignKeys: ['secret', 'keys'],
   sessions: {
