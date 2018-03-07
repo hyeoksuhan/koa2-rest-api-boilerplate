@@ -4,6 +4,10 @@ const config = require('inheritable-config');
 const {sessions, mongo} = config;
 const {mongoose} = require('./db');
 
+const redisStore = new RedisStore({
+  host: sessions.redishost
+});
+
 mongoose.connect(mongo); // async call
 
 const app = koaRest.createApp({
@@ -11,9 +15,7 @@ const app = koaRest.createApp({
   prefix: '/api',
   cookieSignKeys: ['secret', 'keys'],
   sessions: {
-    store: new RedisStore({
-      host: sessions.redishost
-    }),
+    store: redisStore,
     rolling: sessions.resave,
     maxAge: sessions.maxage,
   },
@@ -39,9 +41,13 @@ function gracefulShutdown() {
   .then(() => {
     console.log(`[${Date.now()}] DB closed`);
 
+    return redisStore.close();
+  })
+  .then(() => {
+    console.log(`[${Date.now()}] Redis closed`);
+
     server.close(() => {
       console.log(`[${Date.now()}] Server closed`);
-      // close others
 
       process.exit();
     });

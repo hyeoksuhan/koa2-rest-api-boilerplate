@@ -1,0 +1,26 @@
+version: '2.1'
+
+services:
+  api:
+    build:
+      context: ../
+      dockerfile: docker-mocha
+    volumes:
+      - /usr/app/api/node_modules
+      - ../app:/usr/app/api/app
+      - ../test:/usr/app/api/test
+    ports:
+      - '3000'
+    depends_on:
+      - redis
+      - mongo
+
+  redis:
+    image: redis:4.0.8
+    ports:
+      - '6379'
+
+  mongo:
+    image: mongo:3.6.3
+    ports:
+      - '27017'

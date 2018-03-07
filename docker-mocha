@@ -2,9 +2,9 @@ FROM node:8.1.4
 
 LABEL maintainer="hyeoksu.han@gmail.com"
 
-ARG API_PATH=/usr/app/api/
+ARG API_PATH=/usr/app/api
 
-# create and use workdir
+# create and user workdir
 RUN mkdir -p $API_PATH
 WORKDIR $API_PATH
 
@@ -15,8 +15,5 @@ RUN npm install
 # copy files
 COPY ./ $API_PATH
 
-# expose port
-EXPOSE 3000
-
-# run api
-CMD ["npm", "run", "docker"]
+# run test
+CMD ["npm", "run", "test-docker"]

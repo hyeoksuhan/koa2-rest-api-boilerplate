@@ -40,11 +40,6 @@ $ yarn test
 
 **On docker**
 ```shell
-$ npm run test-docker
-```
-
-or
-
-```shell
-$ yarn test-docker
+$ cd test
+$ docker-compose up (with options)
 ```
