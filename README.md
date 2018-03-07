@@ -25,3 +25,26 @@ $ yarn start
 ```shell
 $ docker-compose up (with options)
 ```
+
+## Test
+**On localhost**
+```shell
+$ npm test
+```
+
+or
+
+```shell
+$ yarn test
+```
+
+**On docker**
+```shell
+$ npm run test-docker
+```
+
+or
+
+```shell
+$ yarn test-docker
+```

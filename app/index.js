@@ -21,4 +21,36 @@ const app = koaRest.createApp({
   routes: require('./routes')
 });
 
-app.listen(process.env.PORT || 3000);
+const server = app.listen(process.env.PORT || 3000);
+
+let shuttingdown = false;
+function gracefulShutdown() {
+  if (shuttingdown) {
+    return;
+  }
+
+  shuttingdown = true;
+
+  setTimeout(() => {
+    process.exit(1);
+  }, 5000);
+
+  mongoose.connection.close()
+  .then(() => {
+    console.log(`[${Date.now()}] DB closed`);
+
+    server.close(() => {
+      console.log(`[${Date.now()}] Server closed`);
+      // close others
+
+      process.exit();
+    });
+  });
+}
+
+process.on('SIGTERM',gracefulShutdown);
+process.on('SIGINT', gracefulShutdown);
+
+exports = module.exports = server;
+exports.shutdownServer = gracefulShutdown;
+exports.mongo = mongoose;

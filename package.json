@@ -5,7 +5,10 @@
   "author": "hshan",
   "scripts": {
     "start": "./npm_scripts/start.sh",
-    "docker": "./npm_scripts/docker.sh"
+    "docker": "./npm_scripts/docker.sh",
+    "test": "NODE_ENV=test PORT=3001 mocha --recursive",
+    "_test-docker": "NODE_ENV=docker:test PORT=3001 mocha --recursive",
+    "test-docker": "docker-compose build && docker-compose run --rm -w /usr/app/api api npm run _test-docker"
   },
   "license": "MIT",
   "dependencies": {
@@ -17,6 +20,9 @@
     "mongoose": "^5.0.8"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-http": "^3.0.0",
+    "mocha": "^5.0.2",
     "nodemon": "^1.15.0"
   },
   "engines": {

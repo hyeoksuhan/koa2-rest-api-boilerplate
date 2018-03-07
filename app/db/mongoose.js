@@ -6,9 +6,9 @@ mongoose.connect = async function(config) {
 
   try {
     await _connect.call(this, uri);
-    console.log(`[${Date.now()}] mongodb connected: ${uri}`);
+    console.log(`[${Date.now()}] DB connected: ${uri}`);
   } catch (err) {
-    console.error(`[${Date.now()}] mongodb failed to connect: ${uri}, caused by: ${err.message}`);
+    console.error(`[${Date.now()}] DB failed to connect: ${uri}, caused by: ${err.message}`);
 
     if (err.message.match(/failed to connect to server .* on first connect/)) {
       setTimeout(() => {
@@ -19,6 +19,6 @@ mongoose.connect = async function(config) {
   }
 };
 
-mongoose.close = mongoose.connection.close.bind(mongoose.connection);
+mongoose.connection.isOpened = () => mongoose.connection.readyState === 1
 
 module.exports = mongoose;

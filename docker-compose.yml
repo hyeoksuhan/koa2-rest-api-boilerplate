@@ -16,6 +16,7 @@ services:
       - '3000:3000'
     depends_on:
       - redis
+      - mongo
     environment:
       - NODE_ENV=${NODE_ENV} # It should be needed to pass NODE_ENV from shell to node
 
