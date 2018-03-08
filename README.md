@@ -1,4 +1,12 @@
 # koa2-rest-api-boilerplate
+[![node][node-image]][node-url]
+[![Build Status][travis-image]][travis-url]
+
+[node-image]: https://img.shields.io/badge/node-%3E%3D%208.1.4-brightgreen.svg
+[node-url]: https://nodejs.org
+[travis-image]: https://travis-ci.org/HanHyeoksu/koa2-rest-api-boilerplate.svg?branch=master
+[travis-url]: https://travis-ci.org/HanHyeoksu/koa2-rest-api-boilerplate
+
 Rest api boilerplate based on koa2, koa-router and mongodb by using [koa2-rest-api](https://github.com/HanHyeoksu/koa2-rest-api) and the other modules.
 
 ## Structure
