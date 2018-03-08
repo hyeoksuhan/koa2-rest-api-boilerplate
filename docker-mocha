@@ -16,4 +16,4 @@ RUN npm install
 COPY ./ $API_PATH
 
 # run test
-CMD ["npm", "run", "test-docker"]
+ENTRYPOINT ./node_modules/.bin/mocha --recursive

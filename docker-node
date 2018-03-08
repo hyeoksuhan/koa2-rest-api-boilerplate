@@ -19,4 +19,4 @@ COPY ./ $API_PATH
 EXPOSE 3000
 
 # run api
-CMD ["npm", "run", "docker"]
+ENTRYPOINT ./npm_scripts/_docker-start.sh

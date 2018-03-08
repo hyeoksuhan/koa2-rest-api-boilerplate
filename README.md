@@ -31,7 +31,13 @@ $ yarn start
 
 **On docker**
 ```shell
-$ docker-compose up (with options)
+$ npm run docker-start
+```
+
+or
+
+```shell
+$ yarn docker-start
 ```
 
 ## Test
@@ -48,6 +54,11 @@ $ yarn test
 
 **On docker**
 ```shell
-$ cd test
-$ docker-compose up (with options)
+$ npm run docker-test
+```
+
+or
+
+```shell
+$ yarn docker-test
 ```

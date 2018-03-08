@@ -4,10 +4,10 @@
   "main": "./app/index.js",
   "author": "hshan",
   "scripts": {
-    "start": "./npm_scripts/start.sh",
-    "docker": "./npm_scripts/docker.sh",
+    "start": "./npm_scripts/_start.sh",
     "test": "NODE_ENV=test PORT=3001 mocha --recursive",
-    "test-docker": "NODE_ENV=docker:test PORT=3001 mocha --recursive"
+    "docker-start": "NODE_ENV=$NODE_ENV docker-compose up --build",
+    "docker-test": "cd test && docker-compose run --rm -w /usr/app/api mocha"
   },
   "license": "MIT",
   "dependencies": {

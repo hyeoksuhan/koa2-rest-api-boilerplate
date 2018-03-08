@@ -9,8 +9,9 @@ services:
       - /usr/app/api/node_modules
       - ../app:/usr/app/api/app
       - ../test:/usr/app/api/test
-    ports:
-      - '3000'
+    environment:
+      - NODE_ENV=docker:test
+      - PORT=3001
     depends_on:
       - redis
       - mongo
