@@ -4,7 +4,7 @@ LABEL maintainer="hyeoksu.han@gmail.com"
 
 ARG API_PATH=/usr/app/api
 
-# create and user workdir
+# create and use workdir
 RUN mkdir -p $API_PATH
 WORKDIR $API_PATH
 
