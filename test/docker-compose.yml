@@ -1,7 +1,7 @@
 version: '2.1'
 
 services:
-  api:
+  mocha:
     build:
       context: ../
       dockerfile: docker-mocha

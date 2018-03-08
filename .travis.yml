@@ -1,0 +1,17 @@
+# language is not required yet
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.18.0
+
+before_install:
+  # install the specific docker-compose v${DOCKER_COMPOSE_VERSION}
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+  # print out the new version of docker-compose
+  - docker-compose --version
+
+script:
+  - cd test && docker-compose run --rm mocha

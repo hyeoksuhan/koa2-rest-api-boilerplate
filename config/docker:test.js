@@ -3,6 +3,6 @@ module.exports = {
     redishost: 'redis'
   },
   mongo: {
-    host: 'mongo',
+    host: 'mongo'
   }
 };
