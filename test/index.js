@@ -1,12 +1,21 @@
 const app = require('../app');
 const {mongo} = app;
 
-before((done) => {
+function cleanup(done) {
+  // drop database
+  mongo.connection.db.dropDatabase()
+  .then(() => done());
+}
+
+before(function(done) {
+  this.timeout(5*1000);
+  cleanup = cleanup.bind(null, done);
+
   if (mongo.connection.isOpened()) {
-    return done();
+    cleanup();
   }
 
-  mongo.connection.once('open', done);
+  mongo.connection.once('open', cleanup);
 });
 
 after(() => {

@@ -1,12 +1,17 @@
 const {User} = require('../models');
 const bcrypt = require('bcrypt');
 
-const MIN_PASSWORD_LEN = 6;
-const MAX_PASSWORD_LEN = 20;
-
 const encryptPassword = Symbol();
 
 module.exports = class UserService {
+  static get MIN_PASSWORD_LEN() {
+    return 6;
+  }
+
+  static get MAX_PASSWORD_LEN() {
+    return 20;
+  }
+
   static async get() {
     return await User.find();
   }
@@ -39,11 +44,11 @@ module.exports = class UserService {
   }
 
   static async isPasswordShort(password) {
-    return password.length < MIN_PASSWORD_LEN;
+    return password.length < this.MIN_PASSWORD_LEN;
   }
 
   static async isPasswordLong(password) {
-    return password.length > MAX_PASSWORD_LEN;
+    return password.length > this.MAX_PASSWORD_LEN;
   }
 
   static async [encryptPassword](password) {

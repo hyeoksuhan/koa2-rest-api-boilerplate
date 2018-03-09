@@ -16,7 +16,6 @@ const strings = {
     desc: 'User not found'
   },
   login_auth_fail: {
-    status: 401,
     desc: 'Email and password is not matched'
   },
   db_duplicate_email: {
