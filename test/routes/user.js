@@ -6,7 +6,6 @@ const password = '12345a';
 
 describe('routes/user', () => {
   const path = '/users';
-  
   const {MIN_PASSWORD_LEN, MAX_PASSWORD_LEN} = services.UserService;
 
   describe('POST /users', () => {
@@ -61,9 +60,9 @@ describe('routes/user', () => {
       try {
         await request.post(path, {email, password});
         fail();
-      } catch(e) {
-        e.status.should.eql(400);
-        e.code.should.eql('db_duplicate_email');
+      } catch({status, code}) {
+        status.should.eql(400);
+        code.should.eql('db_duplicate_email');
       }
 
       await models.User.remove();
@@ -101,9 +100,9 @@ describe('routes/user', () => {
       try {
         await request.post(path, {password});
         fail();
-      } catch(e) {
-        e.status.should.eql(400);
-        e.code.should.eql('route_invalid_email');
+      } catch({status, code}) {
+        status.should.eql(400);
+        code.should.eql('route_invalid_email');
       }
     });
 
@@ -111,9 +110,9 @@ describe('routes/user', () => {
       try {
         await request.post(path, {email});
         fail();
-      } catch(e) {
-        e.status.should.eql(400);
-        e.code.should.eql('route_invalid_password');
+      } catch({status, code}) {
+        status.should.eql(400);
+        code.should.eql('route_invalid_password');
       }
     });
 
@@ -121,9 +120,9 @@ describe('routes/user', () => {
       try {
         await request.post(path, {email, password});
         fail();
-      } catch(e) {
-        e.status.should.eql(400);
-        e.code.should.eql('login_auth_fail');
+      } catch({status, code}) {
+        status.should.eql(400);
+        code.should.eql('login_auth_fail');
       }
     });
 
@@ -135,9 +134,9 @@ describe('routes/user', () => {
 
         await request.post(path, {email, password: password + 1});
         fail();
-      } catch(e) {
-        e.status.should.eql(400);
-        e.code.should.eql('login_auth_fail');
+      } catch({status, code}) {
+        status.should.eql(400);
+        code.should.eql('login_auth_fail');
 
         await models.User.remove();
       }
@@ -153,6 +152,37 @@ describe('routes/user', () => {
       should.exist(response.body.token);
 
       await models.User.remove();
+    });
+  });
+
+  describe('POST /users/me', () => {
+    const path = '/users/me';
+
+    it('should throw route_not_logged_in error when token is invalid', async () => {
+      try {
+        await request.get(path)
+          .set('authorization', 'Bearer invalid_token');
+
+        fail();
+      } catch({status, code}) {
+        status.should.eql(401);
+        code.should.eql('route_not_logged_in');
+      }
+    });
+
+    it('should return user info when token is valid', async () => {
+      await services.UserService.create({
+        name:'hshan', email, password
+      });
+
+      const {body: {token}} = await request.post('/login', {email, password});
+      const {status, body} = await request.get(path)
+        .set('authorization', 'Bearer ' + token);
+
+      status.should.eql(200);
+      body.email.should.eql(email);
+      body.name.should.eql('hshan');
+      should.not.exist(body.password);
     });
   });
 });
