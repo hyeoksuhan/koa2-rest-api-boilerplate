@@ -6,7 +6,6 @@ const request = chai.request(server);
 
 const prefix = '/api/v1';
 
-// TODO: need to change as chanable of origin
 ['post', 'put', 'get', 'delete', 'del'].forEach(method => {
   const origin = request[method];
   request[method] = function(path, body) {
@@ -14,25 +13,50 @@ const prefix = '/api/v1';
       path = prefix + path;
     }
 
-    return origin(path).send(body)
-      .then(res => {
-        const {body, status} = res;
-        return {body, status};
-      })
-      .catch(e => {
-        const error = {
-          status: e.response.status
-        };
+    const request = origin(path);
 
-        const body = e.response.body;
-        if (body) {
-          error.code = body.error_code;
-        }
+    if (body) {
+      return request.send(body);
+    }
 
-        throw error;
-      });
+    return request;
   };
 });
+
+chai.request.Request.prototype.then = function(resolve, reject) {
+  const self = this;
+  return new Promise((_resolve, _reject) => {
+    self.end((err, res) => {
+      if (err) {
+        _reject(err);
+      } else {
+        _resolve(res);
+      }
+    });
+  })
+  .then(res => {
+    const {body, status} = res;
+    return {body, status};
+  })
+  .then(resolve)
+  .catch(err => {
+    const error = {
+      status: err.response.status
+    };
+    const body = err.response.body;
+
+    if (body) {
+      error.code = body.error_code;
+    }
+
+    throw error;
+  })
+  .catch(reject);
+};
+
+chai.request.Request.prototype.catch = function(handler) {
+  return this.then(undefined, handler);
+};
 
 exports.request = request;
 exports.should = chai.should();
