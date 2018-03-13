@@ -183,6 +183,8 @@ describe('routes/user', () => {
       body.email.should.eql(email);
       body.name.should.eql('hshan');
       should.not.exist(body.password);
+
+      await models.User.remove();
     });
   });
 });
