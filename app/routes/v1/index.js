@@ -24,7 +24,7 @@ module.exports = (router) =>
             handler = [path, handler];
           }
 
-          router[method].apply(router, handler);
+          router[method](...handler);
         });
       });
     });
