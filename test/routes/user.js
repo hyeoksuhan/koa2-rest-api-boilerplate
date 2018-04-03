@@ -1,6 +1,6 @@
 const Promise = require('bluebird');
 
-const {request, should, fail, models, services} = require('../helper');
+const {request, should, fail, models, services} = require('@test/helper');
 const email = 'hyeoksu.han@gmail.com';
 const password = '12345a';
 

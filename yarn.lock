@@ -2026,6 +2026,10 @@ mocha@^5.0.2:
     mkdirp "0.5.1"
     supports-color "4.4.0"
 
+module-alias@^2.0.6:
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.0.6.tgz#abb2cfa07014f503514ad5061c6f03d79b591889"
+
 moment@2.x.x:
   version "2.21.0"
   resolved "https://registry.yarnpkg.com/moment/-/moment-2.21.0.tgz#2a114b51d2a6ec9e6d83cf803f838a878d8a023a"

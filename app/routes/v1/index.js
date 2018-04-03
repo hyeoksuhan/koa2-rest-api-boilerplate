@@ -1,24 +1,30 @@
 const fs = require('fs');
 
-module.exports = (services, errors) => {
-  return (router) =>
-    fs.readdirSync(__dirname)
-      .filter(file => file !== 'index.js')
-      .map(file => require('./' + file)(services, errors, router.authCheck))
-      .forEach(routes => {
-        Object.keys(routes).forEach(path => {
-          const route = routes[path];
-          Object.keys(route).forEach(method => {
-            let handler = route[method];
+function getModule(filename, router) {
+  let module = require('./' + filename);
+  if (typeof module === 'function') {
+    module = module(router.authCheck);
+  }
+  return module;
+}
 
-            if (Array.isArray(handler)) {
-              handler.unshift(path);
-            } else {
-              handler = [path, handler];
-            }
+module.exports = (router) =>
+  fs.readdirSync(__dirname)
+    .filter(file => file !== 'index.js')
+    .map(file => getModule(file, router))
+    .forEach(routes => {
+      Object.keys(routes).forEach(path => {
+        const route = routes[path];
+        Object.keys(route).forEach(method => {
+          let handler = route[method];
 
-            router[method].apply(router, handler);
-          });
+          if (Array.isArray(handler)) {
+            handler.unshift(path);
+          } else {
+            handler = [path, handler];
+          }
+
+          router[method].apply(router, handler);
         });
       });
-};
+    });

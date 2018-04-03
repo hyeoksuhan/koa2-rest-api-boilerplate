@@ -1,6 +1,9 @@
+const {UserService, JwtService} = require('@app/services');
+const errors = require('@app/errors');
+
 const {secret, exp} = require('inheritable-config').jwt;
 
-module.exports = ({UserService, JwtService}, errors, authCheck) => ({
+module.exports = (authCheck) => ({
   '/users': {
     get: async ctx => {
       const users = await UserService.get();

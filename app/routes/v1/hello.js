@@ -1,4 +1,4 @@
-module.exports = () => ({
+module.exports = {
   '/hello': {
     get: [
       async (ctx, next) => {
@@ -15,4 +15,4 @@ module.exports = () => ({
       ctx.sendResult('POST /hello');
     }
   }
-});
+};

@@ -1,14 +1,15 @@
+require('module-alias/register');
+
 const koaRest = require('koa2-rest-api');
 const RedisStore = require('koa-session-redis-store');
 const config = require('inheritable-config');
-const {sessions, mongo} = config;
 const {mongoose} = require('./db');
 
 const redisStore = new RedisStore({
-  host: sessions.redishost
+  host: config.sessions.redishost
 });
 
-mongoose.connect(mongo); // async call
+mongoose.connect(config.mongo); // async call
 
 const app = koaRest.createApp({
   jwtsecret: config.jwt.secret,
@@ -16,8 +17,8 @@ const app = koaRest.createApp({
   cookieSignKeys: ['secret', 'keys'],
   sessions: {
     store: redisStore,
-    rolling: sessions.resave,
-    maxAge: sessions.maxage,
+    rolling: config.sessions.resave,
+    maxAge: config.sessions.maxage,
   },
   log4js: config.log4js,
   routes: require('./routes')
@@ -59,4 +60,6 @@ process.on('SIGINT', gracefulShutdown);
 
 exports = module.exports = server;
 exports.shutdownServer = gracefulShutdown;
-exports.mongo = mongoose;
+exports.mongoose = mongoose;
+exports.services = require('./services');
+exports.models = require('./models');

@@ -1,4 +1,4 @@
-module.exports = () => ({
+module.exports = {
   '/views': {
     get: async ctx => {
       let n = ~~ctx.session.views;
@@ -6,4 +6,4 @@ module.exports = () => ({
       ctx.sendResult(n + ' views');
     }
   }
-});
+};

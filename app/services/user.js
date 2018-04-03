@@ -1,4 +1,4 @@
-const {User} = require('../models');
+const {User} = require('@app/models');
 const bcrypt = require('bcrypt');
 
 const encryptPassword = Symbol();

@@ -1,4 +1,4 @@
-const {mongoose} = require('../db');
+const {mongoose} = require('@app/db');
 const schema = new mongoose.Schema({
   email: {
     type: String,
