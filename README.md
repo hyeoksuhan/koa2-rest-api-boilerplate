@@ -22,22 +22,9 @@ $ npm install
 $ npm start
 ```
 
-or
-
-```shell
-$ yarn
-$ yarn start
-```
-
 **On docker**
 ```shell
 $ npm run docker-start
-```
-
-or
-
-```shell
-$ yarn docker-start
 ```
 
 ## Test
@@ -46,19 +33,7 @@ $ yarn docker-start
 $ npm test
 ```
 
-or
-
-```shell
-$ yarn test
-```
-
 **On docker**
 ```shell
 $ npm run docker-test
-```
-
-or
-
-```shell
-$ yarn docker-test
 ```
